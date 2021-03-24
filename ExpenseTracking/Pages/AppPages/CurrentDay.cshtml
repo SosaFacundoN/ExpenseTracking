@@ -1,0 +1,96 @@
+﻿@page
+@model ExpenseTracking.Pages.AppPages.CurrentDayModel
+@{
+    ViewData["Title"] = "Today";
+}
+<div class="h1">
+    Today's Operations -
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOperation">
+        Add Operation
+    </button>
+</div>
+    <div class="modal fade" id="addOperation" tabindex="-1" role="dialog" aria-labelledby="addOperationLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addOperationLabel">Add Operation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" name="newOperation">
+                        <input type="text" asp-for="Operation.Id" />
+                        <div class="form-group">
+                            <label asp-for="Operation.TypeOperation">Operation type:</label>
+                            <select class="form-control" asp-for="Operation.TypeOperation" asp-items="Model.Type"></select>
+                            <span class="text-danger" asp-validation-for="Operation.TypeOperation"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Operation.Money">Money:</label>
+                            <input asp-for="Operation.Money" class="form-control" placeholder="0.00" />
+                            <span class="text-danger" asp-validation-for="Operation.Money"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Operation.Description">Description:</label>
+                            <input asp-for="Operation.Description" class="form-control" placeholder="Golosinas." />
+                            <span class="text-danger" asp-validation-for="Operation.Description"></span>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="event - preventDefault();document.getElementById('newOperation').submit">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <span class="input-group-btn">
+                <button class="btn btn-outline-dark" />Search
+            </span>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    @foreach (var operation in Model.Operations)
+    {
+    <tr>
+        <td>@operation.Date</td>
+        <td>@operation.Description</td>
+        <td>@operation.Branch</td>
+        <td>@operation.TypeOperation</td>
+        @if (operation.TypeOperation == Core.Operation.OperationType.Expense)
+        {
+            <td class="text-danger">-$@operation.Money</td>
+        }
+        else
+        {
+            <td class="text-success">+$@operation.Money</td>
+        }
+    </tr>
+    }  
+<tr>
+    @{decimal current = Model.GetCurrentDayTotal();}
+    <td class="h3">Total:</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    @if (current < 0)
+    {
+        current = current * -1;
+        <td class="text-danger h5">-$@current</td>
+    }
+    else
+    {
+        <td class="text-success h5">+$@current</td>
+    }
+</tr>
+
+</table>

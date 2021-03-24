@@ -1,0 +1,79 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4">Expenses and sales tracker.</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Manager</dt>
+        <dd class="col-sm-9">
+            <p>
+                An user that can create stores, new users(employees) for those stores, view sales
+                and expenses for a single store, or a set of stores. They also can decide whether or not to have a product stock control
+                in which there will also be a detail and contact page with the supplier's info. They can also update the product's prices.
+            </p>
+        </dd>
+        <dt class="col-sm-3">Employees</dt>
+        <dd class="col-sm-9">
+            <p>The employees will have a store assigned by default and they cannot change it once they've log on.</p>
+            <p>They can also see or add (not modify) sales and expenses.</p>
+            <p>Employees can only modify the product stock by selling, they will not have access to those details.</p>
+            <p>They can only see the sales and expenses of the store they've been assigned to. They cannot see previous days either, or the total for that store.</p>
+        </dd>
+        <dt class="col-sm-3">Supplier's info</dt>
+        <dd class="col-sm-9">
+            <p>
+                This page will display a shupplier's info such as:
+                <ul class="list-group">
+                    <li>Name</li>
+                    <li>Phone Number</li>
+                    <li>e-Mail</li>
+                    <li>Order history</li>
+                    <li>Availability</li>
+                    <li>Price List (if stored)</li>
+                </ul>
+            </p>
+        </dd>
+        <dt class="col-sm-3">Expenses and sales</dt>
+        <dd class="col-sm-9">
+            <p>
+                The Expenses and Sales page will display the total of each sale or expense, as well as a description,
+                when the transaction happened, in which store and who did it.
+            </p>
+        </dd>
+    </dl>
+    <h2 class="display-4">What's been implemented so far?</h2>
+    <ul class="list-group">
+        <li class="text-success">In memory data for testing.</li>
+        <li class="text-success">Logic to calculate the Expenses and Sales.</li>
+        <li class="text-success">A modal to quickly add a Sale or an Expense.</li>
+        <li class="text-success">A functional Search bar for descriptions.</li>
+    </ul>
+    <h2 class="display-4">What's being implemented?</h2>
+    <ul class="list-group">
+        <li class="text-primary">Save a Sale or Expense through the modal.</li>
+        <li class="text-primary">Proper time format.</li>
+    </ul>
+    <h2 class="display-4">TO DO:</h2>
+    <ul class="list-group">
+        <li class="text-muted">Log in and log out (with e-mail verification).</li>
+        <li class="text-muted">Product Stock.</li>
+        <li class="text-muted">Supplier's details.</li>
+        <li class="text-muted">Filters.</li>
+        <li class="text-muted">A proper database.</li>
+        <li class="text-muted">A store adding feature.</li>
+        <li class="text-muted">An employee adding feature.</li>
+        <li class="text-muted">Different permission levels for different users.</li>
+        <li class="text-muted">Modify prices feature.</li>
+        <li class="text-muted">An ending day feature.</li>
+        <li class="text-muted">A weekly  /monthly / yearly overview page.</li>
+        <li class="text-muted">Glyphicons.</li>
+        <li class="text-muted">Employee detail page.</li>
+        <li class="text-muted">Manager detail page.</li>
+        <li class="text-muted">Day / night mode switch.</li>
+        <li class="text-muted">Many more things that I'm probably missing.</li>
+    </ul>
+</div>
