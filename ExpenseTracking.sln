@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracking", "ExpenseTracking\ExpenseTracking.csproj", "{2D13B2D6-FBEF-48F0-ADBE-4EEAD4B59094}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracking", "ExpenseTracking\ExpenseTracking.csproj", "{2D13B2D6-FBEF-48F0-ADBE-4EEAD4B59094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracking.Data", "ExpenseTracking.Data\ExpenseTracking.Data.csproj", "{0F785456-91E0-4606-99CE-BC92C2A62627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracking.Data", "ExpenseTracking.Data\ExpenseTracking.Data.csproj", "{0F785456-91E0-4606-99CE-BC92C2A62627}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracking.Core", "ExpenseTracking.Core\ExpenseTracking.Core.csproj", "{D01972C6-A9D1-4981-89D3-C6206B20B5D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpenseTracking.Core", "ExpenseTracking.Core\ExpenseTracking.Core.csproj", "{D01972C6-A9D1-4981-89D3-C6206B20B5D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

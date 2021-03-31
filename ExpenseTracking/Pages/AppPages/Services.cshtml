@@ -1,0 +1,99 @@
+﻿@page
+@model ExpenseTracking.Pages.AppPages.ServicesModel
+@{
+}
+
+<div class="list-group-item-warning">
+    <h5>This is the next upgrade!</h5>
+    <p>On this page, the manager can control, add, delete and edit services. Services are payments that are mandatory and must be made every month, such as rent, wages, bills, etc...</p>
+    <p>The purpose of this page is to avoid repetition and to see whether, or not, the manager has already paid those services.</p>
+    <p> To help with this, a photo of the bill can be attached when adding a payment for a service, as well as a reminder to pay a service.</p>
+</div>
+<div class="h1">
+    Services -
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addService">
+        Add Service
+    </button>
+</div>
+<div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="addServiceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addServiceLabel">Add Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" name="newService">
+
+                    <input type="hidden" asp-for="Service.Id" />
+
+                    <div class="form-group">
+                        <label asp-for="Service.TypeOperation">Operation type:</label>
+                        <input readonly class="form-control-plaintext" asp-for="Service.TypeOperation" asp-items="Model.Type">
+                        <span class="text-danger" asp-validation-for="Service.TypeOperation"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Service.Money">Money:</label>
+                        <input type="number" asp-for="Service.Money" class="form-control" placeholder="0.00" />
+                        <span class="text-danger" asp-validation-for="Service.Money"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Service.Description">Description:</label>
+                        <input asp-for="Service.Description" class="form-control" placeholder="Golosinas." />
+                        <span class="text-danger" asp-validation-for="Service.Description"></span>
+                    </div>
+
+                    <input type="hidden" asp-for="Service.Date" />
+                    <input type="hidden" asp-for="Service.Branch" />
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="get">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" asp-for="SearchTerm" />
+            <span class="input-group-btn">
+                <button class="btn btn-outline-dark" />Search
+            </span>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    @{decimal totalService = 0;}
+    @foreach (var service in Model.Services)
+    {
+        @if (service.IsService == false)
+        {
+            continue;
+        }
+    <tr>
+        <td>@service.Date</td>
+        <td>@service.Description</td>
+        <td>@service.Branch</td>
+        <td>@service.TypeOperation</td>
+        <td class="text-danger">-$@service.Money</td>
+        @{totalService = totalService + service.Money;}
+    </tr>
+    }
+    <tr>
+        <td class="h3">Total:</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-danger h5">-$@totalService</td>
+    </tr>
+
+</table>

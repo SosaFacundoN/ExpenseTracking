@@ -18,5 +18,7 @@ namespace ExpenseTracking.Core
         public OperationType TypeOperation { get; set; }
         [Required]
         public StoreBranch Branch { get; set; }
+        public PaymentMethod Payment { get; set; }
+        public bool IsService { get; set; }
     }
 }

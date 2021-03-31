@@ -11,9 +11,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace ExpenseTracking.Pages.AppPages
 {
-    public class CurrentDayModel : PageModel
+    public class ServicesModel : PageModel
     {
-        public CurrentDayModel(IConfiguration config, IOperationData operationData, IHtmlHelper htmlHelper)
+        public ServicesModel(IConfiguration config, IOperationData operationData, IHtmlHelper htmlHelper)
         {
             this.htmlHelper = htmlHelper;
             this.config = config;
@@ -23,47 +23,30 @@ namespace ExpenseTracking.Pages.AppPages
         private readonly IConfiguration config;
         private IOperationData operationData;
 
-        [BindProperty(SupportsGet =true)]
+        [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
-        public IEnumerable<Operation> Operations { get; set; }
+        public IEnumerable<Operation> Services { get; set; }
         public IEnumerable<SelectListItem> Type { get; set; }
         public IEnumerable<SelectListItem> Pay { get; set; }
         [BindProperty]
-        public Operation Operation { get; set; }
-
-
-        public decimal GetCurrentDayTotal()
-        {
-            decimal total = 0;
-            foreach(var operation in Operations)
-            {
-                if (operation.IsService == true)
-                    continue;
-                if (operation.TypeOperation == Operation.OperationType.Expense)
-                        total = total - operation.Money;
-                else
-                        total = total + operation.Money;
-            }
-                
-            return total;
-        }
-
+        public Operation Service { get; set; }
 
         public IActionResult OnGet(int? operationId)
         {
-            Operations = operationData.GetOperationsByDescription(SearchTerm);
+            Services = operationData.GetOperationsByDescription(SearchTerm);
             Type = htmlHelper.GetEnumSelectList<Operation.OperationType>();
             Pay = htmlHelper.GetEnumSelectList<Operation.PaymentMethod>();
 
-            if (operationId.HasValue)
+            if (operationId.HasValue && Service.IsService == true)
             {
-                Operation = operationData.GetById(operationId.Value);
-                operationData.Delete(Operation);
-                return Page();
+                    Service = operationData.GetById(operationId.Value);
+
+                    operationData.Delete(Service);
+                    return Page();
             }
             else
             {
-                Operation = new Operation();
+                Service = new Operation();
             }
             return Page();
         }
@@ -71,23 +54,24 @@ namespace ExpenseTracking.Pages.AppPages
         public IActionResult OnPost()
         {
             int id = 0;
-            id = Operation.Id;
+            id = Service.Id;
             id = id++;
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            if(Operation.Id < id)
+            if (Service.Id < id)
             {
-                operationData.Update(Operation);
+                operationData.Update(Service);
             }
             else
             {
-                operationData.Add(Operation);
+                operationData.Add(Service);
+                Service.IsService = true;
             }
             operationData.Commit();
-            return RedirectToPage("./CurrentDay");
+            return RedirectToPage("./Services");
 
 
             /*if(Operation.Id > 0)
